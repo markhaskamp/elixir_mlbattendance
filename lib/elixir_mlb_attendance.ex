@@ -1,0 +1,2 @@
+defmodule ElixirMlbAttendance do
+end
