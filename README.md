@@ -5,6 +5,7 @@ ElixirMlbAttendance
 
 ## Exercises 
 
+- count home games for team
 - total attendance for each team
 - team average attendace for each day of the week
 - team home attendance
