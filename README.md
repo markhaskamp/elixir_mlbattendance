@@ -3,6 +3,8 @@ ElixirMlbAttendance
 
 ** TODO: Add description **
 
+## Exercises 
+
 - total attendance for each team
 - team average attendace for each day of the week
 - team home attendance
@@ -14,4 +16,8 @@ ElixirMlbAttendance
 - pitcher of record
   - home wins
   - road wins
+
+## Design Ideas
+
+- server that holds a list of line-tuples
 
