@@ -5,7 +5,7 @@ defmodule ElixirMlbAttendance do
 
     |>
     Enum.reduce(0, fn(x, acc) -> 
-      {attendance,s} = Integer.parse(Enum.at(x,9))
+      {attendance, _s} = Integer.parse(Enum.at(x,9))
       attendance + acc end)
 
     |> 
