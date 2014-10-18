@@ -8,7 +8,7 @@ ElixirMlbAttendance
 ### To Do
 
 - count home games for team
-- total attendance for each team
+- total attendance for all teams
   - add parallelization
 - team average attendace for each day of the week
 - attendance per month
@@ -33,6 +33,7 @@ ElixirMlbAttendance
 ### Done
 
 - total league attendance
+- total attendance for a team
 
 
 

@@ -2,7 +2,6 @@ defmodule ElixirMlbAttendance do
 
   def total_league_attendance do
     build_data_store
-
     |>
     get_total_attendance
   end
@@ -10,13 +9,48 @@ defmodule ElixirMlbAttendance do
 
   def attendance_for(team) do
     build_data_store
-
     |>
     filter_for_team(team)
-
     |>
     get_total_attendance
+  end
 
+
+  def attendance_for_all_teams do
+    build_data_store
+    |>
+    get_teams
+
+    # build list of {team, attendance} tuples
+    |>
+    team_attendance_list
+
+    
+  end
+
+  defp team_attendance_list(teams) do
+    all_attendance = build_data_store
+    _team_attendance_list([], teams, all_attendance)
+  end
+
+  defp _team_attendance_list(acc, [], _all) do
+    acc
+  end
+  defp _team_attendance_list(acc, [head | tail], all) do
+    team_list = filter_for_team(all, head)
+    team_attendance = get_total_attendance team_list
+    _team_attendance_list([{head, team_attendance} | acc], tail, all)
+  end
+
+  defp get_teams(list) do
+    _get_teams HashSet.new,list
+  end
+
+  defp _get_teams(acc, []) do 
+    Set.to_list(acc)
+  end
+  defp _get_teams(acc, [head | tail]) do
+    _get_teams(Set.put(acc, Enum.at(head,2)), tail)
   end
 
   
@@ -31,7 +65,7 @@ defmodule ElixirMlbAttendance do
   end
 
 
-  defp build_data_store do
+  def build_data_store do
     slurp("data/2014MlbDailyAttendance.csv")
 
     |>
