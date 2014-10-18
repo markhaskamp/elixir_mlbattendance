@@ -1,22 +1,7 @@
 defmodule ElixirMlbAttendance do
 
   def total_league_attendance do
-    slurp("data/2014MlbDailyAttendance.csv")
-
-    |>
-    Enum.drop(1)
-
-    |>
-    Enum.filter(fn(x) ->
-      items = String.split(x, ",")
-      Enum.at(items, 9) != "N/A" and Enum.at(items, 9) != "" and Enum.at(items, 9) != nil
-    end)
-
-#    |>
-#    Enum.each(fn(x) ->
-#      items = String.split(x, ",")
-#      IO.puts Enum.at(items, 9)
-#    end)
+    build_data_store
 
     |>
     Enum.reduce( 0, fn(x,acc) ->
@@ -32,6 +17,16 @@ defmodule ElixirMlbAttendance do
 
   end
 
+  defp build_data_store do
+    slurp("data/2014MlbDailyAttendance.csv")
+
+    |>
+    Enum.drop(1)
+
+    |>
+    remove_attendance_non_integers
+  end
+
 
   def slurp(file) do
     case File.read(file) do
@@ -41,8 +36,12 @@ defmodule ElixirMlbAttendance do
   end
 
 
-  def foo(file_lines) do
-    IO.puts Enum.count(file_lines)
+  defp remove_attendance_non_integers(list) do
+    Enum.filter(list, fn(x) ->
+      items = String.split(x, ",")
+      Enum.at(items, 9) != "N/A" and Enum.at(items, 9) != "" and Enum.at(items, 9) != nil
+    end)
   end
+
 
 end
