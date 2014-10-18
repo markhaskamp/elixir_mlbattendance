@@ -17,8 +17,14 @@ ElixirMlbAttendance
 - pitcher of record
   - home wins
   - road wins
+- team average runs
+  - home
+  - road
+
 
 ## Design Ideas
 
 - server that holds a list of line-tuples
+  - with a supervisor
+
 
