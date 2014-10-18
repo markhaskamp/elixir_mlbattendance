@@ -4,15 +4,9 @@ defmodule ElixirMlbAttendance do
     build_data_store
 
     |>
-    Enum.reduce( 0, fn(x,acc) ->
-      items = String.split(x, ",")
-      case Integer.parse(Enum.at(items, 9)) do
-        {n,""} -> acc + n
-        :error -> acc + 0
-      end
-    end)
+    Enum.join("\n")
 
-    |>
+    |> 
     IO.puts
   end
 
@@ -24,7 +18,8 @@ defmodule ElixirMlbAttendance do
     Enum.drop(1)
 
     |>
-    remove_attendance_non_integers
+    convert_items_to_lists
+
   end
 
 
@@ -36,12 +31,28 @@ defmodule ElixirMlbAttendance do
   end
 
 
-  defp remove_attendance_non_integers(list) do
-    Enum.filter(list, fn(x) ->
-      items = String.split(x, ",")
-      Enum.at(items, 9) != "N/A" and Enum.at(items, 9) != "" and Enum.at(items, 9) != nil
-    end)
+  defp convert_items_to_lists(list) do
+    foo([], list)
+  end
+
+  defp foo(acc, [hd | tail]) do
+    foo([String.split(hd, ",") | acc], tail)
+  end
+
+  defp foo(acc, []) do
+    acc
   end
 
 
+  defp remove_attendance_non_integers(list) do
+    Enum.filter(list, fn(x) ->
+      case x do
+        nil   -> false
+        ""    -> false
+        "N/A" -> false
+        _     -> true
+      end
+    end)
+        
+  end
 end
