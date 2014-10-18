@@ -1,9 +1,35 @@
 defmodule ElixirMlbAttendance do
 
-  def read_file do
+  def total_league_attendance do
     slurp("data/2014MlbDailyAttendance.csv")
+
     |>
-    foo
+    Enum.drop(1)
+
+    |>
+    Enum.filter(fn(x) ->
+      items = String.split(x, ",")
+      Enum.at(items, 9) != "N/A" and Enum.at(items, 9) != "" and Enum.at(items, 9) != nil
+    end)
+
+#    |>
+#    Enum.each(fn(x) ->
+#      items = String.split(x, ",")
+#      IO.puts Enum.at(items, 9)
+#    end)
+
+    |>
+    Enum.reduce( 0, fn(x,acc) ->
+      items = String.split(x, ",")
+      case Integer.parse(Enum.at(items, 9)) do
+        {n,""} -> acc + n
+        :error -> acc + 0
+      end
+    end)
+
+    |>
+    IO.puts
+
   end
 
 

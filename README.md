@@ -20,6 +20,9 @@ ElixirMlbAttendance
 - team average runs
   - home
   - road
+- use the 1st line as a header line, not a data line
+  - hd
+  - opposite of take is _drop_
 
 
 ## Design Ideas
