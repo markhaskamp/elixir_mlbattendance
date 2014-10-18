@@ -4,12 +4,30 @@ defmodule ElixirMlbAttendance do
     build_data_store
 
     |>
-    Enum.reduce(0, fn(x, acc) -> 
+    get_total_attendance
+  end
+
+
+  def attendance_for(team) do
+    build_data_store
+
+    |>
+    filter_for_team(team)
+
+    |>
+    get_total_attendance
+
+  end
+
+  
+  defp get_total_attendance(list) do
+    Enum.reduce(list, 0, fn(x, acc) -> 
       {attendance, _s} = Integer.parse(Enum.at(x,9))
       attendance + acc end)
+  end
 
-    |> 
-    IO.puts
+  defp filter_for_team(list, team) do
+    Enum.filter(list, fn(x) -> Enum.at(x,2) == team end)
   end
 
 

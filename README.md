@@ -5,6 +5,8 @@ ElixirMlbAttendance
 
 ## Exercises 
 
+### To Do
+
 - count home games for team
 - total attendance for each team
   - add parallelization
@@ -27,6 +29,11 @@ ElixirMlbAttendance
 - use the 1st line as a header line, not a data line
   - hd
   - opposite of take is _drop_
+
+### Done
+
+- total league attendance
+
 
 
 ## Design Ideas
