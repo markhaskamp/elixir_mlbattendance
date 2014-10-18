@@ -14,8 +14,8 @@ defmodule ElixirMlbAttendance do
 
     |>
     IO.puts
-
   end
+
 
   defp build_data_store do
     slurp("data/2014MlbDailyAttendance.csv")
