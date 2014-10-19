@@ -27,14 +27,12 @@ defmodule ElixirMlbAttendance do
   end
 
   def attendance_by_day_for_team(team) do
-    build_data_store
+    all_records = build_data_store
 
-    |>
-    get_days
+    get_days(all_records)
 
     |> 
     Enum.map(fn(dow) -> 
-      all_records = build_data_store
       day_records = Enum.filter(all_records, &(Enum.at(&1,1) == dow and Enum.at(&1,2) == team))
       day_total = get_total_attendance(day_records) 
       {dow, day_total, (day_total/Enum.count(day_records))}
