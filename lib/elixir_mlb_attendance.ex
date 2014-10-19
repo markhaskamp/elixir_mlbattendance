@@ -32,15 +32,31 @@ defmodule ElixirMlbAttendance do
     get_days(all_records)
 
     |> 
-    Enum.map(fn(dow) -> 
-      day_records = Enum.filter(all_records, &(Enum.at(&1,1) == dow and Enum.at(&1,2) == team))
-      day_total = get_total_attendance(day_records) 
-      {dow, day_total, (day_total/Enum.count(day_records))}
-    end)
+    pmap(&(my_function(&1, team)))
 
     
   end
 
+  def my_function(dow, team) do
+      all_records = build_data_store
+      day_records = Enum.filter(all_records, &(Enum.at(&1,1) == dow and Enum.at(&1,2) == team))
+      day_total = get_total_attendance(day_records) 
+      {dow, day_total, (day_total/Enum.count(day_records))}
+  end
+
+  def pmap(collection, fun) do
+    me = self
+
+    collection
+    |>
+    Enum.map(fn (elem) ->
+      spawn_link fn -> (send me, {self, fun.(elem) }) end 
+    end)
+    |>
+    Enum.map(fn (pid) ->
+      receive do { ^pid, result } -> result end
+    end)
+  end
 
   defp team_attendance_list(teams) do
     all_attendance = build_data_store
