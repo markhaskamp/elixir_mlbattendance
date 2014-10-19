@@ -36,9 +36,7 @@ defmodule ElixirMlbAttendance do
       day_records = Enum.filter(all_records, &(Enum.at(&1,1) == dow and Enum.at(&1,2) == team))
       day_total = get_total_attendance(day_records) 
       {dow, day_total, (day_total/Enum.count(day_records))}
-
-
-      end)
+    end)
 
     
   end
