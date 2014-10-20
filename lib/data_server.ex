@@ -7,12 +7,20 @@ defmodule DataServer do
   end
 
   def get_all_lines do
-    GenServer.call __MODULE__, :foo
+    GenServer.call __MODULE__, :get_prepped_data
   end
 
-  def handle_call(:foo, _from, current_state) do
-    {:reply, build_data_store, []}
+  def handle_call(:get_prepped_data, _from, []) do
+    IO.puts "i got nothing"
+    attendance_list = build_data_store
+    {:reply, attendance_list, attendance_list}
   end
+
+  def handle_call(:get_prepped_data, _from, attendance_list) do
+    IO.puts "been there done that"
+    {:reply, attendance_list, attendance_list}
+  end
+
 
 
   def build_data_store do
