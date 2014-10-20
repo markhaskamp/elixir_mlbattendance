@@ -10,6 +10,10 @@ defmodule DataServer do
     GenServer.call __MODULE__, :get_prepped_data
   end
 
+  def cause_error do
+    GenServer.cast __MODULE__, :cause_error
+  end
+
   def handle_call(:get_prepped_data, _from, []) do
     IO.puts "i got nothing"
     attendance_list = build_data_store
@@ -19,6 +23,10 @@ defmodule DataServer do
   def handle_call(:get_prepped_data, _from, attendance_list) do
     IO.puts "been there done that"
     {:reply, attendance_list, attendance_list}
+  end
+
+  def handle_cast(:cause_error, attendance_list) do
+    {:noreply, 42/0}
   end
 
 

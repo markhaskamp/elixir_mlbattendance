@@ -1,8 +1,10 @@
 defmodule ElixirMlbAttendance do
   
+  def break_dataserver do
+    DataServer.cause_error
+  end
 
   def total_league_attendance do
-
     DataServer.get_all_lines
     |>
     get_total_attendance
@@ -10,7 +12,6 @@ defmodule ElixirMlbAttendance do
 
 
   def attendance_for(team) do
-
     DataServer.get_all_lines
     |>
     filter_for_team(team)
@@ -20,7 +21,6 @@ defmodule ElixirMlbAttendance do
 
 
   def attendance_for_all_teams do
-
     DataServer.get_all_lines
     |>
     get_teams
