@@ -2,7 +2,6 @@ defmodule ElixirMlbAttendance do
   
 
   def total_league_attendance do
-    DataServer.start_link
 
     DataServer.get_all_lines
     |>
@@ -10,56 +9,58 @@ defmodule ElixirMlbAttendance do
   end
 
 
-#  def attendance_for(team) do
-#    build_data_store
-#    |>
-#    filter_for_team(team)
-#    |>
-#    get_total_attendance
-#  end
-#
-#
-#  def attendance_for_all_teams do
-#    build_data_store
-#    |>
-#    get_teams
-#
-#    # build list of {team, attendance} tuples
-#    |>
-#    team_attendance_list
-#  end
-#
-#  def attendance_by_day_for_team(team) do
-#    all_records = build_data_store
-#
-#    get_days(all_records)
-#
-#    |> 
-#    pmap(&(my_function(&1, team)))
-#
-#    
-#  end
-#
-#  def my_function(dow, team) do
-#      all_records = build_data_store
-#      day_records = Enum.filter(all_records, &(Enum.at(&1,1) == dow and Enum.at(&1,2) == team))
-#      day_total = get_total_attendance(day_records) 
-#      {dow, day_total, (day_total/Enum.count(day_records))}
-#  end
-#
-#  defp team_attendance_list(teams) do
-#    all_attendance = build_data_store
-#    _team_attendance_list([], teams, all_attendance)
-#  end
-#
-#  defp _team_attendance_list(acc, [], _all) do
-#    acc
-#  end
-#  defp _team_attendance_list(acc, [head | tail], all) do
-#    team_list = filter_for_team(all, head)
-#    team_attendance = get_total_attendance team_list
-#    _team_attendance_list([{head, team_attendance} | acc], tail, all)
-#  end
+  def attendance_for(team) do
+
+    DataServer.get_all_lines
+    |>
+    filter_for_team(team)
+    |>
+    get_total_attendance
+  end
+
+
+  def attendance_for_all_teams do
+
+    DataServer.get_all_lines
+    |>
+    get_teams
+
+    # build list of {team, attendance} tuples
+    |>
+    team_attendance_list
+  end
+
+  def attendance_by_day_for_team(team) do
+    all_records = DataServer.get_all_lines
+
+    get_days(all_records)
+
+    |> 
+    pmap(&(my_function(&1, team)))
+
+    
+  end
+
+  def my_function(dow, team) do
+      all_records = DataServer.get_all_lines
+      day_records = Enum.filter(all_records, &(Enum.at(&1,1) == dow and Enum.at(&1,2) == team))
+      day_total = get_total_attendance(day_records) 
+      {dow, day_total, (day_total/Enum.count(day_records))}
+  end
+
+  defp team_attendance_list(teams) do
+    all_attendance = DataServer.get_all_lines
+    _team_attendance_list([], teams, all_attendance)
+  end
+
+  defp _team_attendance_list(acc, [], _all) do
+    acc
+  end
+  defp _team_attendance_list(acc, [head | tail], all) do
+    team_list = filter_for_team(all, head)
+    team_attendance = get_total_attendance team_list
+    _team_attendance_list([{head, team_attendance} | acc], tail, all)
+  end
 
   defp get_teams(list) do
     _get_teams HashSet.new,list
