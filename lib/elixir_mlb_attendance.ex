@@ -27,7 +27,7 @@ defmodule ElixirMlbAttendance do
 
     # build list of {team, attendance} tuples
     |>
-    Util.pmap(&(team_attendance(&1)))
+    Util.pmap2(fn(n) -> team_attendance(n) end)
   end
 
   def team_attendance(team) do
@@ -40,7 +40,7 @@ defmodule ElixirMlbAttendance do
 
     get_days(all_records)
     |> 
-    Util.pmap(&(team_attendance_for_day(&1, team)))
+    Util.pmap2(&(team_attendance_for_day(&1, team)))
   end
 
 
