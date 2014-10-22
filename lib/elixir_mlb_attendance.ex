@@ -27,7 +27,7 @@ defmodule ElixirMlbAttendance do
 
     # build list of {team, attendance} tuples
     |>
-    pmap(&(team_attendance(&1)))
+    Util.pmap(&(team_attendance(&1)))
   end
 
   def team_attendance(team) do
@@ -40,7 +40,7 @@ defmodule ElixirMlbAttendance do
 
     get_days(all_records)
     |> 
-    pmap(&(team_attendance_for_day(&1, team)))
+    Util.pmap(&(team_attendance_for_day(&1, team)))
   end
 
 
@@ -99,18 +99,5 @@ defmodule ElixirMlbAttendance do
 
 
 
-  def pmap(collection, fun) do
-    me = self
-
-    collection
-    |>
-    Enum.map(fn (elem) ->
-      spawn_link fn -> (send me, {self, fun.(elem) }) end 
-    end)
-    |>
-    Enum.map(fn (pid) ->
-      receive do { ^pid, result } -> result end
-    end)
-  end
 
 end
