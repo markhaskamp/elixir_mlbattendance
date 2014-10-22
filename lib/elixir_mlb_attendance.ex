@@ -27,21 +27,24 @@ defmodule ElixirMlbAttendance do
 
     # build list of {team, attendance} tuples
     |>
-    team_attendance_list
+    pmap(&(team_attendance(&1)))
   end
+
+  def team_attendance(team) do
+    {team, attendance_for(team)}
+  end
+
 
   def attendance_by_day_for_team(team) do
     all_records = DataServer.get_all_lines
 
     get_days(all_records)
-
     |> 
-    pmap(&(my_function(&1, team)))
-
-    
+    pmap(&(team_attendance_for_day(&1, team)))
   end
 
-  def my_function(dow, team) do
+
+  def team_attendance_for_day(dow, team) do
       all_records = DataServer.get_all_lines
       day_records = Enum.filter(all_records, &(Enum.at(&1,1) == dow and Enum.at(&1,2) == team))
       day_total = get_total_attendance(day_records) 

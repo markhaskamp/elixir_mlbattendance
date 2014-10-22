@@ -15,13 +15,13 @@ defmodule DataServer do
   end
 
   def handle_call(:get_prepped_data, _from, []) do
-    IO.puts "i got nothing"
+    # IO.puts "i got nothing"
     attendance_list = build_data_store
     {:reply, attendance_list, attendance_list}
   end
 
   def handle_call(:get_prepped_data, _from, attendance_list) do
-    IO.puts "been there done that"
+    # IO.puts "been there done that"
     {:reply, attendance_list, attendance_list}
   end
 
