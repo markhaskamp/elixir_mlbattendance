@@ -30,7 +30,7 @@ defmodule DataServer do
   end
 
   def build_data_store do
-    slurp("data/2014MlbDailyAttendance.csv")
+    Util.slurp("data/2014MlbDailyAttendance.csv")
 
     |>
     Enum.drop(1)
@@ -40,14 +40,6 @@ defmodule DataServer do
 
     |>
     remove_attendance_non_integers
-  end
-
-
-  def slurp(file) do
-    case File.read(file) do
-      {:ok, body} -> String.split(body, "\n")
-      {:error, reason} -> IO.puts("=== #{reason}")
-    end
   end
 
 

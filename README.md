@@ -12,11 +12,15 @@ ElixirMlbAttendance
 - team average attendance for each day of the week
 - set the DataServer data
   - mostly for unit testing
+
+- team road attendance
+- team average runs
+  - home
+  - road
 - field names instead of record indices
 - attendance per month
   - league
   - for each team
-- team road attendance
 - league interleague average attendance
 - league average attendance for each day of the week
 - team highest single game attendance
@@ -24,9 +28,6 @@ ElixirMlbAttendance
 - pitcher of record
   - home wins
   - road wins
-- team average runs
-  - home
-  - road
 - use the 1st line as a header line, not a data line
 
 
