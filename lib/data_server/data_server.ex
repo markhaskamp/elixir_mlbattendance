@@ -10,6 +10,10 @@ defmodule DataServer do
     GenServer.call __MODULE__, :get_prepped_data
   end
 
+  def set_data input_string do
+    GenServer.cast __MODULE__, {:set_data, input_string}
+  end
+
   def cause_error do
     GenServer.cast __MODULE__, :cause_error
   end
@@ -24,6 +28,15 @@ defmodule DataServer do
     #IO.puts "been there done that"
     {:reply, attendance_list, attendance_list}
   end
+
+  def handle_cast({:set_data, input_string}, current_state) do
+    attendance_list = 
+    String.split(input_string, "\n")
+    |>
+    convert_items_to_lists
+
+    {:noreply, attendance_list}
+  end 
 
   def handle_cast(:cause_error, attendance_list) do
     {:noreply, 42/0}
@@ -47,12 +60,16 @@ defmodule DataServer do
     lists_accumulator([], list)
   end
 
-  defp lists_accumulator(acc, [hd | tail]) do
-    lists_accumulator([String.split(hd, ",") | acc], tail)
-  end
-
   defp lists_accumulator(acc, []) do
     acc
+  end
+
+  defp lists_accumulator(acc, ["" | tail]) do
+    lists_accumulator(acc, tail)
+  end
+
+  defp lists_accumulator(acc, [hd | tail]) do
+    lists_accumulator([String.split(hd, ",") | acc], tail)
   end
 
 

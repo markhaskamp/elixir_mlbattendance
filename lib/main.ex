@@ -2,7 +2,7 @@ defmodule Main do
   use Application
 
   def start(_type, _args) do
-    IO.puts "=== === got to here === ==="
+    # IO.puts "=== === got to here === ==="
     import Supervisor.Spec, warn: false
 
     children = [
