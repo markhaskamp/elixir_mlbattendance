@@ -10,7 +10,6 @@ defmodule ElixirMlbAttendance do
     get_total_attendance
   end
 
-
   def attendance_for(team) do
     DataServer.get_all_lines
     |>
@@ -18,7 +17,6 @@ defmodule ElixirMlbAttendance do
     |>
     get_total_attendance
   end
-
 
   def attendance_for_all_teams do
     DataServer.get_all_lines

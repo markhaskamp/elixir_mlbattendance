@@ -5,19 +5,20 @@ ElixirMlbAttendance
 
 ## Exercises 
 
-### To Do
-
-- count home games for team
-- total attendance for all teams
+- total league attendance
+- team attendance
+- team attendance for all teams
   - add parallelization
-- team average attendace for each day of the week
+- team average attendance for each day of the week
+- set the DataServer data
+  - mostly for unit testing
+- field names instead of record indices
 - attendance per month
   - league
   - for each team
-- team home attendance
 - team road attendance
 - league interleague average attendance
-- league average attendace for each day of the week
+- league average attendance for each day of the week
 - team highest single game attendance
 - number of sellouts per team
 - pitcher of record
@@ -27,14 +28,6 @@ ElixirMlbAttendance
   - home
   - road
 - use the 1st line as a header line, not a data line
-  - hd
-  - opposite of take is _drop_
-
-### Done
-
-- total league attendance
-- total attendance for a team
-
 
 
 ## Design Ideas

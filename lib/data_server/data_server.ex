@@ -29,8 +29,6 @@ defmodule DataServer do
     {:noreply, 42/0}
   end
 
-
-
   def build_data_store do
     slurp("data/2014MlbDailyAttendance.csv")
 
