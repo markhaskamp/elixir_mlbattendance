@@ -50,18 +50,26 @@ defmodule ElixirMlbAttendance do
   end
 
   def road_attendance_for(nickname) do
-    nickname_map = %{"Reds" => "Cincinnati", "Cardinals" =>"St. Louis", "Yankees" => "NY Yankees", "Cubs" => "Chicago Cubs" }
+    nickname_map = %{"Reds" => "Cincinnati", "Cardinals" =>"St. Louis", "Yankees" => "NY Yankees", "Cubs" => "Chicago Cubs", "Padres" => "San Diego", "Rockies" => "Colorado", "Dbacks" => "Arizona" }
 
     city = nickname_map[nickname]
 
     DataServer.get_all_lines
     |>
-    Enum.filter(&(Enum.at(&1,2) != nickname))   # get all games that arent team home games
+    Enum.filter(&(is_not_home_game_for(&1, nickname)))
     |>
-    Enum.filter(&(String.contains?(Enum.at(&1,5),city)))   # get all games that team played in
+    Enum.filter(&(team_played_in(&1, city)))
     |>
     get_total_attendance
 
+  end
+
+  def is_not_home_game_for(record, nickname) do
+    (Enum.at(record,2) != nickname)
+  end
+
+  def team_played_in record,city do
+    String.contains?(Enum.at(record, 5), city)
   end
 
   defp team_attendance_list(teams) do

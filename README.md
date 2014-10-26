@@ -13,6 +13,8 @@ ElixirMlbAttendance
 - set the DataServer data
   - mostly for unit testing
 
+- curry the _Enum.at_ methods to get\_team, get\_attendance, etc.
+  - read heading line and build the get\_ methods automatically.
 - team road attendance
 - team average runs
   - home
