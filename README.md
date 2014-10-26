@@ -1,7 +1,9 @@
 ElixirMlbAttendance
 ===================
 
-** TODO: Add description **
+## Description
+
+Use the mlb attendance data file to practice with elixir.
 
 ## Exercises 
 
@@ -13,7 +15,7 @@ ElixirMlbAttendance
 - set the DataServer data
   - mostly for unit testing
 
-- curry the _Enum.at_ methods to get\_team, get\_attendance, etc.
+- use partial-appliction instead of the _Enum.at_ methods to get\_team, get\_attendance, etc.
   - read heading line and build the get\_ methods automatically.
 - team road attendance
 - team average runs
@@ -39,4 +41,27 @@ ElixirMlbAttendance
   - with a supervisor
   - supervisor is on separate node
 
+## Notes
+
+example of __currying__. probably correct. 
+
+    get_from_list = fn(list) ->
+      fn(ndx) -> 
+        Enum.at(list, ndx)
+      end
+    end
+
+    Usage:
+    some_list = [:a, :b, :c]
+    get_from_list.(some_list).(0)   # returns :a
+
+
+
+example of __partial application__. possibly correct.
+
+    get_first_name = fn(list) -> Enum.at(list, 0) end
+
+    Usage:
+    some_list = [:mark, :r, :haskamp]
+    get_first_name.(some_list)   # returns :mark
 
